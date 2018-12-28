@@ -1,0 +1,5 @@
+<block>
+    <view>
+        <at-button type="primary" __triggerObserer="{{ _triggerObserer }}" bindonclick="logon" __fn_onClick="{{true}}">测试按钮</at-button>
+    </view>
+</block>
