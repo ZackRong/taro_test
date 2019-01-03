@@ -29,6 +29,11 @@ class Login extends Component {
         <AtButton type="primary" onClick={this.logon}>测试按钮</AtButton>
       </View>;
   }
+
+  componentDidMount() {}
+
+  componentDidShow() {}
+
 }
 
 export default Login;

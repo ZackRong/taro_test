@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "at-message": "../../npm/taro-ui/dist/weapp/components/message/index",
-    "at-toast": "../../npm/taro-ui/dist/weapp/components/toast/index"
-  },
-  "navigationBarTitleText": "公告"
-}
