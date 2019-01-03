@@ -1,0 +1,6 @@
+<block>
+    <view class="index">
+        <at-message __triggerObserer="{{ _triggerObserer }}"></at-message>
+        <at-toast isOpened="{{loading}}" __triggerObserer="{{ _triggerObserer }}" status="loading" text="正在加载"></at-toast>
+    </view>
+</block>
