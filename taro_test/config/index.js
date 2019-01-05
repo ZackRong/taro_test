@@ -36,7 +36,8 @@ const config = {
   alias: {
     '@utils': path.resolve(__dirname, '..', 'src/utils'),
     '@conf': path.resolve(__dirname, '..', 'src/conf.js'),
-    '@icons': path.resolve(__dirname, '..', 'src/icons')
+    '@icons': path.resolve(__dirname, '..', 'src/icons'),
+    '@components': path.resolve(__dirname, '..', 'src/components')
   },
   weapp: {
     module: {

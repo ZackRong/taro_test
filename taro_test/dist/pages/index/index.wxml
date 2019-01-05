@@ -1,0 +1,28 @@
+<block>
+    <view class="index">
+        <at-message __triggerObserer="{{ _triggerObserer }}"></at-message>
+        <at-toast isOpened="{{loading}}" __triggerObserer="{{ _triggerObserer }}" status="loading" text="正在加载" duration="{{8000}}"></at-toast>
+        <scroll-view scroll-y="{{true}}" bindscrolltolower="onScrollToLower" style="{{'height: ' + screenHeight + 'px'}}" scroll-with-animation="{{true}}">
+            <view wx:key="id" class="{{prefixCls}}" wx:for="{{loopArray0}}" wx:for-item="announcement">
+                <view class="{{prefixCls + '-subject'}}">{{announcement.subject}}</view>
+                <view class="{{prefixCls + '-content'}}">
+                    <block>
+                        <block wx:if="{{announcement.embeddedJson}}">
+                            <content embeddedJson="{{announcement.embeddedJson}}" __triggerObserer="{{ _triggerObserer }}"></content>
+                        </block>
+                        <block wx:else>
+                            <view class="common-content">{{announcement.content}}</view>
+                        </block>
+                    </block>
+                </view>
+                <view class="{{prefixCls + '-bottom'}}">
+                    <text class="{{prefixCls + '-bottom-time'}}">{{announcement.$loopState__temp2}}</text>
+                    <view class="{{prefixCls + '-bottom-views-wrapper'}}">
+                        <image class="{{prefixCls + '-bottom-views-wrapper-icon'}}" src="{{readIcon}}" />
+                        <text class="{{prefixCls + '-bottom-views-wrapper-count'}}">{{announcement.$loopState__temp4}}</text>
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+</block>

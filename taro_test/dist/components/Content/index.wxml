@@ -1,0 +1,15 @@
+<block>
+    <view class="{{prefixCls}}">
+        <block>
+            <block wx:if="{{contentType === 'forward'}}">
+                <view class="{{prefixCls + '-rich-text-wrapper'}}">
+                    <view class="{{prefixCls + '-rich-text-wrapper-image'}}" style="{{anonymousState__temp}}"></view>
+                    <view class="{{prefixCls + '-rich-text-wrapper-title'}}">{{title}}</view>
+                </view>
+            </block>
+            <block wx:else>
+                <rich-text nodes="{{content}}"></rich-text>
+            </block>
+        </block>
+    </view>
+</block>

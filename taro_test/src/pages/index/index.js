@@ -1,10 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, ScrollView } from '@tarojs/components'
 import { AtMessage, AtToast } from 'taro-ui';
+import { Content } from '@components';
 import { callApi } from '@utils';
 import { API } from '@conf';
 import readIcon from '@icons/forum_list_read_icon.png';
-import linkIcon from '@icons/forum_list_link_icon.png';
 import './index.less'
 
 export default class Index extends Component {
@@ -16,12 +16,19 @@ export default class Index extends Component {
     super(...arguments);
     this.state = {
       announcementDTOs: [],
-      loading: true
+      loading: true,
+      screenHeight: 667,
+      nextPageAnchor: undefined
     };
   }
 
   componentWillMount() {
     this.listAnnouncement();
+    Taro.getSystemInfo({
+      success: (res) => {
+        this.setState({ screenHeight: res.screenHeight })
+      }
+    });
   }
 
   componentDidMount() {
@@ -35,17 +42,22 @@ export default class Index extends Component {
 
   listAnnouncement = () => {
     const { communityId } = this.$router.params;
-
+    const { nextPageAnchor, announcementDTOs = [] } = this.state;
+    let data = {
+      communityId,
+      pageSize: 6
+    };
+    if (nextPageAnchor) {
+      data.pageAnchor = nextPageAnchor;
+    }
     callApi({
       url: API.listAnnouncement,
-      data: {
-        communityId,
-        pageSize: 10
-      },
+      data,
       success: (response) => {
-        const { announcementDTOs = [] } = response || {};
+        const { announcementDTOs: newAnnouncementDTOS = [], nextPageAnchor } = response || {};
         this.setState({
-          announcementDTOs
+          announcementDTOs: announcementDTOs.concat(newAnnouncementDTOS),
+          nextPageAnchor
         });
       },
       error: () => {
@@ -90,28 +102,34 @@ export default class Index extends Component {
     return '999+'
   }
 
+  onScrollToLower = () => {
+    const { nextPageAnchor } = this.state;
+    if (nextPageAnchor) {
+      this.listAnnouncement();
+    }
+  }
+
   render() {
     const prefixCls = 'announcement';
-    const { announcementDTOs, loading } = this.state;
+    const { announcementDTOs, loading, screenHeight } = this.state;
 
     // 组装content的DOM节点
-    const getContentDOM = (cont, embeddedJson) => {
-      if (!embeddedJson) {
-        return cont;
-      }
-      const prefixCls = 'rich-text';
-      const parseEmbeddedJson = JSON.parse(embeddedJson);
-      const { content, contentType, title = '' } = parseEmbeddedJson;
-      if (contentType === 'forward') {
-        return (
-          <View className={prefixCls}>
-            <Image src={linkIcon} className={`${prefixCls}-icon`} />
-            <View className={`${prefixCls}-title`}>{title}</View>
-          </View>
-        )
-      }
-      // console.log(parseEmbeddedJson)
-    }
+    // const getContentDOM = (cont, embeddedJson) => {
+    //   if (!embeddedJson) {
+    //     return cont;
+    //   }
+    //   const prefixCls = 'rich-text';
+    //   const parseEmbeddedJson = JSON.parse(embeddedJson);
+    //   const { content, contentType, title = '' } = parseEmbeddedJson;
+    //   if (contentType === 'forward') {
+    //     return (
+    //       <View className={prefixCls}>
+    //         <Image src={linkIcon} className={`${prefixCls}-icon`} />
+    //         <View className={`${prefixCls}-title`}>{title}</View>
+    //       </View>
+    //     )
+    //   }
+    // }
 
     return (
       <View className='index'>
@@ -120,29 +138,40 @@ export default class Index extends Component {
           isOpened={loading}
           status='loading'
           text='正在加载'
-          duration={6000}
+          duration={8000}
         />
-        {
-          announcementDTOs.map(announcement => {
-            const { subject = '', id, content, createTime, childCount, embeddedJson } = announcement;
-            return (
-              <View
-                key={id}
-                className={prefixCls}
-              >
-                <View className={`${prefixCls}-subject`}>{subject}</View>
-                <View className={`${prefixCls}-content`}>{getContentDOM(content, embeddedJson)}</View>
-                <View className={`${prefixCls}-bottom`}>
-                  <Text className={`${prefixCls}-bottom-time`}>{this.parseTime(createTime)}</Text>
-                  <View className={`${prefixCls}-bottom-views-wrapper`}>
-                    <Image className={`${prefixCls}-bottom-views-wrapper-icon`} src={readIcon} />
-                    <Text className={`${prefixCls}-bottom-views-wrapper-count`}>{this.getChildCount(childCount)}</Text>
+        <ScrollView
+          scrollY
+          // lowerThreshold={30}
+          onScrollToLower={this.onScrollToLower}
+          style={`height: ${screenHeight}px`}
+          scrollWithAnimation
+        >
+          {
+            announcementDTOs.map(announcement => {
+              const { subject = '', id, content, createTime, childCount, embeddedJson } = announcement;
+
+              return (
+                <View
+                  key={id}
+                  className={prefixCls}
+                >
+                  <View className={`${prefixCls}-subject`}>{subject}</View>
+                  <View className={`${prefixCls}-content`}>
+                    {embeddedJson ? <Content embeddedJson={embeddedJson} /> : <View className='common-content'>{content}</View>}
+                  </View>
+                  <View className={`${prefixCls}-bottom`}>
+                    <Text className={`${prefixCls}-bottom-time`}>{this.parseTime(createTime)}</Text>
+                    <View className={`${prefixCls}-bottom-views-wrapper`}>
+                      <Image className={`${prefixCls}-bottom-views-wrapper-icon`} src={readIcon} />
+                      <Text className={`${prefixCls}-bottom-views-wrapper-count`}>{this.getChildCount(childCount)}</Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            )
-          })
-        }
+              )
+            })
+          }
+        </ScrollView>
       </View>
     )
   }
