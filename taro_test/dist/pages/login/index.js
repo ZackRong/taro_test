@@ -42,7 +42,7 @@ var Login = (_temp2 = _class = function (_BaseComponent) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Login.__proto__ || Object.getPrototypeOf(Login)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = [], _this.logon = function () {
       (0, _index3.callApi)({
-        url: _conf.API.logon,
+        api: _conf.API.logon,
         data: {
           userIdentifier: 'root',
           password: '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',

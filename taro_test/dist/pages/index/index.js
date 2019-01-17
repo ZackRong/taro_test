@@ -59,7 +59,7 @@ var Index = (_temp2 = _class = function (_BaseComponent) {
         data.pageAnchor = nextPageAnchor;
       }
       (0, _index3.callApi)({
-        url: _conf.API.listAnnouncement,
+        api: _conf.API.listAnnouncement,
         data: data,
         success: function success(response) {
           var _ref2 = response || {},
@@ -110,8 +110,18 @@ var Index = (_temp2 = _class = function (_BaseComponent) {
       var nextPageAnchor = _this.state.nextPageAnchor;
 
       if (nextPageAnchor) {
-        _this.listAnnouncement();
+        _this.setState({ loading: true }, _this.listAnnouncement);
       }
+    }, _this.goDetail = function (id) {
+      var communityId = _this.$router.params.communityId;
+
+      var query = (0, _index3.setQueryParam)({
+        bulletinId: id,
+        communityId: communityId
+      });
+      _index2.default.navigateTo({
+        url: "/pages/detail/index" + query
+      });
     }, _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -156,6 +166,9 @@ var Index = (_temp2 = _class = function (_BaseComponent) {
 
     // 按规则返回查看次数
 
+
+    // 进入详情页
+
   }, {
     key: "_createData",
     value: function _createData() {
@@ -171,23 +184,6 @@ var Index = (_temp2 = _class = function (_BaseComponent) {
           loading = _state.loading,
           screenHeight = _state.screenHeight;
 
-      // 组装content的DOM节点
-      // const getContentDOM = (cont, embeddedJson) => {
-      //   if (!embeddedJson) {
-      //     return cont;
-      //   }
-      //   const prefixCls = 'rich-text';
-      //   const parseEmbeddedJson = JSON.parse(embeddedJson);
-      //   const { content, contentType, title = '' } = parseEmbeddedJson;
-      //   if (contentType === 'forward') {
-      //     return (
-      //       <View className={prefixCls}>
-      //         <Image src={linkIcon} className={`${prefixCls}-icon`} />
-      //         <View className={`${prefixCls}-title`}>{title}</View>
-      //       </View>
-      //     )
-      //   }
-      // }
 
       var loopArray0 = announcementDTOs.map(function (announcement) {
         announcement = {
@@ -228,7 +224,7 @@ var Index = (_temp2 = _class = function (_BaseComponent) {
   }]);
 
   return Index;
-}(_index.Component), _class.properties = {}, _class.$$events = ["onScrollToLower"], _temp2);
+}(_index.Component), _class.properties = {}, _class.$$events = ["onScrollToLower", "goDetail"], _temp2);
 exports.default = Index;
 
 Component(require('../../npm/@tarojs/taro-weapp/index.js').default.createComponent(Index, true));

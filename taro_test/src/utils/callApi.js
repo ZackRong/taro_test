@@ -3,9 +3,9 @@ import Taro from '@tarojs/taro'
 const proxy = 'http://opv2-beta.zuolin.com';
 // const apiBase = `${process.env.NODE_ENV === 'development' ? proxy : window.location.origin}/evh`;
 const apiBase = `${window && window.location ? window.location.origin : 'http://opv2-beta.zuolin.com'}/evh`;
-const callApi = ({ url = '', method = 'POST', data = {}, success, error, complete }) => {
+const callApi = ({ api = '', method = 'POST', data = {}, success, error, complete }) => {
   Taro.request({
-    url: `${apiBase}${url}`,
+    url: `${apiBase}${api}`,
     method,
     data,
     header: {

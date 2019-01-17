@@ -56,11 +56,15 @@ var Content = (_temp2 = _class = function (_BaseComponent) {
       var prefixCls = 'announcement-content-component';
       var embeddedJson = this.__props.embeddedJson;
 
-      var parseEmbeddedJson = JSON.parse(embeddedJson);
-      var contentType = parseEmbeddedJson.contentType,
-          richContent = parseEmbeddedJson.richContent,
-          coverUri = parseEmbeddedJson.coverUri,
-          title = parseEmbeddedJson.title;
+      var parseEmbeddedJson = {};
+      if (embeddedJson) {
+        parseEmbeddedJson = JSON.parse(embeddedJson);
+      }
+      var _parseEmbeddedJson = parseEmbeddedJson,
+          contentType = _parseEmbeddedJson.contentType,
+          richContent = _parseEmbeddedJson.richContent,
+          coverUri = _parseEmbeddedJson.coverUri,
+          title = _parseEmbeddedJson.title;
 
       var content = null;
       if (richContent) {

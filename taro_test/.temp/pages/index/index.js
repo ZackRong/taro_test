@@ -4,7 +4,7 @@ import Nerv from "nervjs";
 import { View, Text, Image, ScrollView } from '@tarojs/components';
 import { AtMessage, AtToast } from 'taro-ui';
 import { Content } from "../../components";
-import { callApi } from "../../utils";
+import { callApi, setQueryParam } from "../../utils";
 import { API } from "../../conf";
 import readIcon from "../../icons/forum_list_read_icon.png";
 import './index.less';
@@ -52,7 +52,7 @@ export default class Index extends Component {
       data.pageAnchor = nextPageAnchor;
     }
     callApi({
-      url: API.listAnnouncement,
+      api: API.listAnnouncement,
       data,
       success: response => {
         const { announcementDTOs: newAnnouncementDTOS = [], nextPageAnchor } = response || {};
@@ -106,31 +106,25 @@ export default class Index extends Component {
   onScrollToLower = () => {
     const { nextPageAnchor } = this.state;
     if (nextPageAnchor) {
-      this.listAnnouncement();
+      this.setState({ loading: true }, this.listAnnouncement);
     }
+  };
+
+  // 进入详情页
+  goDetail = id => {
+    const { communityId } = this.$router.params;
+    const query = setQueryParam({
+      bulletinId: id,
+      communityId
+    });
+    Taro.navigateTo({
+      url: `/pages/detail/index${query}`
+    });
   };
 
   render() {
     const prefixCls = 'announcement';
     const { announcementDTOs, loading, screenHeight } = this.state;
-
-    // 组装content的DOM节点
-    // const getContentDOM = (cont, embeddedJson) => {
-    //   if (!embeddedJson) {
-    //     return cont;
-    //   }
-    //   const prefixCls = 'rich-text';
-    //   const parseEmbeddedJson = JSON.parse(embeddedJson);
-    //   const { content, contentType, title = '' } = parseEmbeddedJson;
-    //   if (contentType === 'forward') {
-    //     return (
-    //       <View className={prefixCls}>
-    //         <Image src={linkIcon} className={`${prefixCls}-icon`} />
-    //         <View className={`${prefixCls}-title`}>{title}</View>
-    //       </View>
-    //     )
-    //   }
-    // }
 
     return <View className="index">
         <AtMessage />
@@ -141,7 +135,7 @@ export default class Index extends Component {
           {announcementDTOs.map(announcement => {
           const { subject = '', id, content, createTime, childCount, embeddedJson } = announcement;
 
-          return <View key={id} className={prefixCls}>
+          return <View key={id} className={prefixCls} onClick={this.goDetail.bind(this, id)}>
                   <View className={`${prefixCls}-subject`}>{subject}</View>
                   <View className={`${prefixCls}-content`}>
                     {embeddedJson ? <Content embeddedJson={embeddedJson} /> : <View className="common-content">{content}</View>}

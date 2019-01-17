@@ -15,8 +15,8 @@ var proxy = 'http://opv2-beta.zuolin.com';
 // const apiBase = `${process.env.NODE_ENV === 'development' ? proxy : window.location.origin}/evh`;
 var apiBase = (window && window.location ? window.location.origin : 'http://opv2-beta.zuolin.com') + '/evh';
 var callApi = function callApi(_ref) {
-  var _ref$url = _ref.url,
-      url = _ref$url === undefined ? '' : _ref$url,
+  var _ref$api = _ref.api,
+      api = _ref$api === undefined ? '' : _ref$api,
       _ref$method = _ref.method,
       method = _ref$method === undefined ? 'POST' : _ref$method,
       _ref$data = _ref.data,
@@ -26,7 +26,7 @@ var callApi = function callApi(_ref) {
       complete = _ref.complete;
 
   _index2.default.request({
-    url: '' + apiBase + url,
+    url: '' + apiBase + api,
     method: method,
     data: data,
     header: {

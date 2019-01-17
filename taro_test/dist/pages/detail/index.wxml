@@ -1,0 +1,13 @@
+<block>
+    <view class="{{prefixCls}}">
+        <at-message __triggerObserer="{{ _triggerObserer }}"></at-message>
+        <at-toast isOpened="{{loading}}" __triggerObserer="{{ _triggerObserer }}" status="loading" text="正在加载" duration="{{8000}}"></at-toast>
+        <block wx:if="{{!loading}}">
+            <view>
+                <view class="{{prefixCls + '-subject'}}">{{subject}}</view>
+                <basic-info creatorAvatarUrl="{{creatorAvatarUrl}}" __triggerObserer="{{ _triggerObserer }}" creatorNickName="{{creatorNickName}}" createTime="{{createTime}}"></basic-info>
+                <detail-content content="{{content}}" __triggerObserer="{{ _triggerObserer }}" attachments="{{attachments}}" embeddedJson="{{embeddedJson}}"></detail-content>
+            </view>
+        </block>
+    </view>
+</block>

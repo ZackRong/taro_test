@@ -3,7 +3,7 @@
         <at-message __triggerObserer="{{ _triggerObserer }}"></at-message>
         <at-toast isOpened="{{loading}}" __triggerObserer="{{ _triggerObserer }}" status="loading" text="正在加载" duration="{{8000}}"></at-toast>
         <scroll-view scroll-y="{{true}}" bindscrolltolower="onScrollToLower" style="{{'height: ' + screenHeight + 'px'}}" scroll-with-animation="{{true}}">
-            <view wx:key="id" class="{{prefixCls}}" wx:for="{{loopArray0}}" wx:for-item="announcement">
+            <view wx:key="id" class="{{prefixCls}}" bindtap="goDetail" wx:for="{{loopArray0}}" wx:for-item="announcement" data-e-tap-so="this" data-e-tap-a-a="{{announcement.id}}">
                 <view class="{{prefixCls + '-subject'}}">{{announcement.subject}}</view>
                 <view class="{{prefixCls + '-content'}}">
                     <block>

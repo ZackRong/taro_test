@@ -1,0 +1,33 @@
+
+.announcement-detail-basic-info-component {
+  margin-top: 32rpx;
+  margin-bottom: 48rpx;
+  position: relative;
+}
+.announcement-detail-basic-info-component-avatar-icon {
+  width: 80rpx;
+  height: 80rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 100%;
+}
+.announcement-detail-basic-info-component-name-time {
+  padding-left: 104rpx;
+}
+.announcement-detail-basic-info-component-name-time .nick-name {
+  font-size: 28rpx;
+  color: #494949;
+  line-height: 34rpx;
+  height: 34rpx;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.announcement-detail-basic-info-component-name-time .time {
+  margin-top: 8rpx;
+  color: #9B9B9B;
+  font-size: 24rpx;
+  line-height: 34rpx;
+}

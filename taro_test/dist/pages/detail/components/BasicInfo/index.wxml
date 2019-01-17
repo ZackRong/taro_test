@@ -1,0 +1,9 @@
+<block>
+    <view class="{{prefixCls}}">
+        <image src="{{creatorAvatarUrl || defaultAvatarIcon}}" mode="aspectFill" class="{{prefixCls + '-avatar-icon'}}" />
+        <view class="{{prefixCls + '-name-time'}}">
+            <view class="nick-name">{{creatorNickName}}</view>
+            <view class="time">{{anonymousState__temp}}</view>
+        </view>
+    </view>
+</block>

@@ -22,7 +22,7 @@ Taro.initPxTransform({
 class App extends Component {
 
   config = {
-    pages: ['pages/index/index', 'pages/login/index'],
+    pages: ['pages/index/index', 'pages/login/index', 'pages/detail/index', 'pages/external_link/index'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
@@ -51,6 +51,14 @@ class App extends Component {
     }, {
       path: '/pages/login/index',
       componentLoader: () => import( /* webpackChunkName: "login_index" */'./pages/login/index'),
+      isIndex: false
+    }, {
+      path: '/pages/detail/index',
+      componentLoader: () => import( /* webpackChunkName: "detail_index" */'./pages/detail/index'),
+      isIndex: false
+    }, {
+      path: '/pages/external_link/index',
+      componentLoader: () => import( /* webpackChunkName: "external_link_index" */'./pages/external_link/index'),
       isIndex: false
     }]} />;
   }

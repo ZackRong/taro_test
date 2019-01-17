@@ -1,0 +1,45 @@
+
+.announcement-detail-content-component-common-content {
+  font-size: 32rpx;
+  color: #494949;
+  line-height: 52rpx;
+  margin-bottom: 8rpx;
+}
+.announcement-detail-content-component .taro-img {
+  height: auto;
+  display: block;
+}
+.announcement-detail-content-component-image {
+  width: 100%;
+  margin-top: 32rpx;
+}
+.announcement-detail-content-component-link-wrapper {
+  background-color: #F8F8F8;
+  border: solid 1PX #E0E0E0;
+  border-radius: 2PX;
+  position: relative;
+  height: 110rpx;
+  display: block;
+}
+.announcement-detail-content-component-link-wrapper .image {
+  display: inline-block;
+  width: 110rpx;
+  height: 110rpx;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.announcement-detail-content-component-link-wrapper .title {
+  position: absolute;
+  left: 133rpx;
+  right: 33rpx;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 28rpx;
+  color: #707070;
+  line-height: 110rpx;
+}

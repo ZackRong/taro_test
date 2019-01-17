@@ -1,0 +1,19 @@
+<block>
+    <view class="{{prefixCls}}">
+        <block wx:if="{{embeddedJson}}">
+            <block wx:if="{{contentType === 'create'}}">
+                <rich-text nodes="{{richContent}}"></rich-text>
+            </block>
+            <block wx:elif="{{contentType === 'forward'}}">
+                <view class="{{prefixCls + '-link-wrapper'}}" bindtap="navigate" data-e-tap-so="this" data-e-tap-a-a="{{cont}}">
+                    <view class="image" style="{{_$anonymousState__temp}}"></view>
+                    <view class="title">{{title}}</view>
+                </view>
+            </block>
+            <view wx:else>
+                <view class="{{prefixCls + '-common-content'}}">{{content}}</view>
+                <image class="{{prefixCls + '-image'}}" src="{{attachment.contentUrl}}" wx:key="id" wx:for="{{loopArray0}}" wx:for-item="attachment" />
+            </view>
+        </block>
+    </view>
+</block>

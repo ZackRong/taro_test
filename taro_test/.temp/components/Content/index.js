@@ -9,7 +9,10 @@ class Content extends Component {
   render() {
     const prefixCls = 'announcement-content-component';
     const { embeddedJson } = this.props;
-    const parseEmbeddedJson = JSON.parse(embeddedJson);
+    let parseEmbeddedJson = {};
+    if (embeddedJson) {
+      parseEmbeddedJson = JSON.parse(embeddedJson);
+    }
     const { contentType, richContent, coverUri, title } = parseEmbeddedJson;
     let content = null;
     if (richContent) {
